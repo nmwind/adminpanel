@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 
 @NgModule({
@@ -40,11 +39,16 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                     loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule)
                 },
 
-                {path: 'auth', loadChildren: () => import('./features/auth')},
-                {path: 'notfound', component: NotfoundComponent},
+                {
+                    path: 'auth',
+                    loadChildren: () => import('./features/auth')
+                },
+                {
+                    path: 'notfound',
+                    loadComponent: () => import("./features/errors/notfound/notfound.component").then(c => c.NotfoundComponent)
+                },
                 {path: '**', redirectTo: '/notfound'},
-            ],
-            {
+            ], {
                 scrollPositionRestoration: 'enabled',
                 anchorScrolling: 'enabled',
                 onSameUrlNavigation: 'reload'
