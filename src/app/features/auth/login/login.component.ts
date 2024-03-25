@@ -1,4 +1,6 @@
+import { NgOptimizedImage } from "@angular/common";
 import { Component } from '@angular/core';
+import { RippleModule } from "primeng/ripple";
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -19,7 +21,8 @@ import { InputTextModule } from 'primeng/inputtext';
         }
     `],
     standalone: true,
-    imports: [InputTextModule, PasswordModule, FormsModule, CheckboxModule, ButtonModule, RouterLink]
+    imports: [InputTextModule, PasswordModule, FormsModule, CheckboxModule, ButtonModule, RouterLink, RippleModule,
+        NgOptimizedImage]
 })
 export class LoginComponent {
 
