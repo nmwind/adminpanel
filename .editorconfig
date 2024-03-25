@@ -9,7 +9,8 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.ts]
-quote_type = single
+ij_typescript_array_initializer_wrap = on_every_item
+ij_typescript_imports_wrap = on_every_item
 
 [*.md]
 max_line_length = off
