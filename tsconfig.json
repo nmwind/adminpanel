@@ -2,6 +2,13 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
+        "paths": {
+            "@environment": ["src/environments/environment.ts"],
+            "@api/*": ["src/app/modules/api/*"],
+            "@modules/*": ["src/app/modules/*"],
+            "@shared/*": ["src/app/modules/shared/*"],
+            "@features/*": ["src/app/features/*"],
+        },
         "baseUrl": "./",
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,
