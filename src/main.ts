@@ -1,12 +1,35 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { provideHttpClient } from "@angular/common/http";
+import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from "@angular/platform-browser/animations";
+import { AppRoutingModule } from './app/app-routing.module';
+import { AppComponent } from './app/app.component';
+import { CountryService } from './app/demo/service/country.service';
+import { CustomerService } from './app/demo/service/customer.service';
+import { EventService } from './app/demo/service/event.service';
+import { IconService } from './app/demo/service/icon.service';
+import { NodeService } from './app/demo/service/node.service';
+import { PhotoService } from './app/demo/service/photo.service';
+import { ProductService } from './app/demo/service/product.service';
 
-import { AppModule } from './app/app.module';
+
 import { environment } from './environments/environment';
 
 if (environment.production) {
-  enableProdMode();
+    enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+    providers: [
+        provideHttpClient(),
+        provideAnimations(),
+        importProvidersFrom(AppRoutingModule),
+        {
+            provide: LocationStrategy,
+            useClass: PathLocationStrategy
+        },
+        CountryService, CustomerService, EventService, IconService, NodeService,
+        PhotoService, ProductService,
+    ]
+}).catch(err => console.error(err));
