@@ -13,13 +13,11 @@ import { ProductService } from './demo/service/product.service';
 import { AppLayoutModule } from './layout/app.layout.module';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NotfoundComponent
-    ],
+    declarations: [AppComponent],
     imports: [
         AppRoutingModule,
-        AppLayoutModule
+        AppLayoutModule,
+        NotfoundComponent
     ],
     providers: [
         {
