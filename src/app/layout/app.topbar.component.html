@@ -1,6 +1,6 @@
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="">
-        <img src="assets/layout/images/logo-loader.png" alt="logo">
+        <img src="assets/layout/images/logo-loader.png" alt="logo" >
         <span>TN CHECK</span>
 <!--        <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="logo">-->
 <!--        <span>SAKAI</span>-->
@@ -9,6 +9,8 @@
     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
         <i class="pi pi-bars"></i>
     </button>
+
+    <span class="text-2xl ml-1 font-bold uppercase ">Главная</span>
 
     <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
         <i class="pi pi-ellipsis-v"></i>

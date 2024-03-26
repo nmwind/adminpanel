@@ -1,6 +1,6 @@
 import { HttpParams } from "@angular/common/http";
+import { ListQueryParameters, PageResult } from "@api";
 import { BaseHttpService } from "@api/services/base-http.service";
-import { ListQueryParameters, PageResult } from "@modules/api";
 import { Observable } from "rxjs";
 
 type IdType = number | string;

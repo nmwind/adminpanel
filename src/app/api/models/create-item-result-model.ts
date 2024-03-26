@@ -1,3 +1,3 @@
 export interface CreateItemResultModel {
-  id: string;
+    id: string;
 }

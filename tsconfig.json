@@ -4,9 +4,9 @@
     "compilerOptions": {
         "paths": {
             "@environment": ["src/environments/environment.ts"],
-            "@api/*": ["src/app/modules/api/*"],
-            "@modules/*": ["src/app/modules/*"],
-            "@shared/*": ["src/app/modules/shared/*"],
+            "@api/*": ["src/app/api/*"],
+            "@api": ["src/app/api"],
+            "@common/*": ["src/app/common/*"],
             "@features/*": ["src/app/features/*"],
         },
         "baseUrl": "./",

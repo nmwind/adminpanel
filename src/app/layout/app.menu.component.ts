@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppMenuConfig } from "../app-menu.config";
 import { AppMenuitemComponent } from './app.menuitem.component';
 import { LayoutService } from './service/app.layout.service';
@@ -10,14 +10,10 @@ import { LayoutService } from './service/app.layout.service';
     standalone: true,
     imports: [NgFor, NgIf, AppMenuitemComponent]
 })
-export class AppMenuComponent implements OnInit {
+export class AppMenuComponent {
 
-    protected model: any[] = [];
+    protected readonly model = AppMenuConfig;
 
     constructor(protected readonly layoutService: LayoutService) {
-    }
-
-    ngOnInit() {
-        this.model = AppMenuConfig;
     }
 }
