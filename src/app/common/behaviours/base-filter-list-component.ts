@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, inject, Inject, OnDestroy, ViewChild } from "@angular/core";
 import { BaseDataSource } from "@common/data/base-data-source";
 import { Filter, Paging } from "@common/models/lists";
 
@@ -13,14 +13,14 @@ export abstract class BaseFilterListComponent<
     TListItemModel,
     TDataSource extends BaseDataSource<TListItemModel, TDataSourceFilter>,
     TDataSourceFilter extends Filter
-> implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild("searchValue") searchValueInput: ElementRef<HTMLInputElement>;
-    public readonly paging = new Paging();
+> implements AfterViewInit, OnDestroy {
+    protected readonly paging = new Paging();
     protected readonly destroy$ = new Subject<void>();
+    @ViewChild("searchValue") private readonly searchValueInput: ElementRef<HTMLInputElement>;
 
     protected constructor(
-        @Inject(String) public readonly dataSource: TDataSource,
-        @Inject(String) public readonly filter: TDataSourceFilter,
+        @Inject(String) protected readonly dataSource: TDataSource,
+        @Inject(String) protected readonly filter: TDataSourceFilter,
         protected readonly messageService: MessageService = inject(MessageService)
     ) {
         // this.dataSource.error$.pipe(
@@ -42,10 +42,6 @@ export abstract class BaseFilterListComponent<
                 this.loadItems();
             });
         }
-    }
-
-    // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
-    ngOnInit(): void {
     }
 
     public loadItems() {
