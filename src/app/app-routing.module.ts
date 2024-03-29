@@ -50,6 +50,9 @@ const demo: Route[] = [
                             path: "dashboard",
                             loadComponent: () => import("./features/dashboard/components/dashboard/dashboard.component").then(c => c.DashboardComponent)
                         },
+                        {
+                            path: "dictionaries", loadChildren: () => import("@features/dictionaries")
+                        },
                         {path: "", redirectTo: "dashboard", pathMatch: "prefix"}
                     ],
                 },

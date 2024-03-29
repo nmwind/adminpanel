@@ -5,30 +5,30 @@ export const AppMenuConfig = [
             {label: "Главная", icon: "pi pi-fw pi-microsoft", routerLink: ["/"]}
         ],
     },
-    {
-        label: "Мониторинг",
-        items: [
-            {label: "Объекты", icon: "pi pi-fw pi-home", routerLink: ["/"]},
-            {label: "Документы", icon: "pi pi-fw pi-file", routerLink: ["/"]},
-            {label: "Пользователи", icon: "pi pi-fw pi-users", routerLink: ["/"]},
-            {label: "Промокоды", icon: "pi pi-fw pi-ticket", routerLink: ["/"]},
-            {label: "Администраторы", icon: "pi pi-fw pi-shield", routerLink: ["/"]},
-            {label: "Истории", icon: "pi pi-fw pi-instagram", routerLink: ["/"]},
-            {label: "Услуги", icon: "pi pi-fw pi-server", routerLink: ["/"]},
-            {label: "Идеи", icon: "pi pi-fw pi-twitter", routerLink: ["/"]},
-            {label: "Претензии", icon: "pi pi-fw pi-thumbs-down", routerLink: ["/"]},
-            {label: "Чаты", icon: "pi pi-fw pi-comments", routerLink: ["/"]},
-        ]
-    },
-    {
-        label: "Продукты",
-        items: [
-            {label: "Материалы", icon: "pi pi-fw pi-bookmark", routerLink: ["/"]},
-            {label: "Системы", icon: "pi pi-fw pi-server", routerLink: ["/"]},
-            {label: "Шаблоны", icon: "pi pi-fw pi-clone", routerLink: ["/"]},
-            {label: "Руководства и инструкции", icon: "pi pi-fw pi-folder", routerLink: ["/"]},
-        ]
-    },
+    // {
+    //     label: "Мониторинг",
+    //     items: [
+    //         {label: "Объекты", icon: "pi pi-fw pi-home", routerLink: ["/"]},
+    //         {label: "Документы", icon: "pi pi-fw pi-file", routerLink: ["/"]},
+    //         {label: "Пользователи", icon: "pi pi-fw pi-users", routerLink: ["/"]},
+    //         {label: "Промокоды", icon: "pi pi-fw pi-ticket", routerLink: ["/"]},
+    //         {label: "Администраторы", icon: "pi pi-fw pi-shield", routerLink: ["/"]},
+    //         {label: "Истории", icon: "pi pi-fw pi-instagram", routerLink: ["/"]},
+    //         {label: "Услуги", icon: "pi pi-fw pi-server", routerLink: ["/"]},
+    //         {label: "Идеи", icon: "pi pi-fw pi-twitter", routerLink: ["/"]},
+    //         {label: "Претензии", icon: "pi pi-fw pi-thumbs-down", routerLink: ["/"]},
+    //         {label: "Чаты", icon: "pi pi-fw pi-comments", routerLink: ["/"]},
+    //     ]
+    // },
+    // {
+    //     label: "Продукты",
+    //     items: [
+    //         {label: "Материалы", icon: "pi pi-fw pi-bookmark", routerLink: ["/"]},
+    //         {label: "Системы", icon: "pi pi-fw pi-server", routerLink: ["/"]},
+    //         {label: "Шаблоны", icon: "pi pi-fw pi-clone", routerLink: ["/"]},
+    //         {label: "Руководства и инструкции", icon: "pi pi-fw pi-folder", routerLink: ["/"]},
+    //     ]
+    // },
     {
         label: "Справочники",
         items: [
@@ -36,7 +36,7 @@ export const AppMenuConfig = [
             {label: "Направления", icon: "pi pi-fw pi-directions", routerLink: ["/"]},
             {label: "Единицы измерения", icon: "pi pi-fw pi-hourglass", routerLink: ["/"]},
             {label: "Страны", icon: "pi pi-fw pi-globe", routerLink: ["/"]},
-            {label: "Языки", icon: "pi pi-fw pi-language", routerLink: ["/"]},
+            {label: "Языки", icon: "pi pi-fw pi-language", routerLink: ["/dictionaries/languages"]},
             {label: "Токены для отчетов", icon: "pi pi-fw pi-slack", routerLink: ["/"]},
         ]
     },

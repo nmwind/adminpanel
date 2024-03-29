@@ -45,9 +45,11 @@ export abstract class CrudBaseHttpService<
     protected createHttpParamsList(init?: ListQueryParameters) {
         if (!init) return new HttpParams();
         let fromObject: any = {};
-        Object.keys(init).forEach((field) => {
-            fromObject[field] = (<any>init)[field].toString();
-        });
+        Object.keys(init)
+            .filter(field => !!init[field])
+            .forEach((field) => {
+                fromObject[field] = (<any>init)[field];
+            });
         return new HttpParams({fromObject});
         // let params = new HttpParams({});
         // if (!init) return params;

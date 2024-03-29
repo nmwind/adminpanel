@@ -1,0 +1,86 @@
+<div class="card">
+    <p-table (onLazyLoad)="lazyLoadItems($event)"
+             [lazy]="true"
+             [loading]="dataSource.loading()"
+             [paginator]="true"
+             [rowHover]="true"
+             [rowsPerPageOptions]="paging.sizes"
+             [rows]="paging.sizes[0]"
+             [showCurrentPageReport]="true"
+             [sortOrder]="1"
+             [totalRecords]="dataSource.total()"
+             [value]="dataSource.items()"
+             currentPageReportTemplate="Всего {totalRecords} элементов"
+             dataKey="id"
+             responsiveLayout="scroll"
+             sortField="createdAt">
+
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <span class="block mt-2 md:mt-0 p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input #searchValue class="w-full sm:w-auto mr-2" pInputText placeholder="Поиск..."
+                           type="text"/>
+                </span>
+                <span class="block mt-2 md:mt-0 ">&nbsp;</span>
+                <span class="block mt-2 md:mt-0 ">
+                    <p-dropdown (onChange)="loadItems()"
+                                [(ngModel)]="filter.isDeleted.value"
+                                [options]="filter.isDeleted.values"
+                                class="w-full sm:w-auto"
+                                optionLabel="name"
+                                optionValue="value"></p-dropdown>
+                </span>
+                <!--                <span class="p-input-icon-left ml-auto">-->
+                <!--                    <i class="pi pi-search"></i>-->
+                <!--                    <input pInputText type="text" placeholder="Search keyword"/>-->
+                <!--                </span>-->
+                <!--                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"></button>-->
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Название
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="isoCode">Код
+                    <p-sortIcon field="isoCode"></p-sortIcon>
+                </th>
+                <th style="width:120px;" pSortableColumn="isDeleted">Удален
+                    <p-sortIcon field="isDeleted"></p-sortIcon>
+                </th>
+                <th style="width:160px" pSortableColumn="createdAt">Создан
+                    <p-sortIcon field="createdAt"></p-sortIcon>
+                </th>
+                <th style="width:160px" pSortableColumn="updatedAt">Изменен
+                    <p-sortIcon field="updatedAt"></p-sortIcon>
+                </th>
+                <th style="width:150px;">Действия</th>
+            </tr>
+        </ng-template>
+        <ng-template let-item pTemplate="body">
+            <tr>
+                <td> {{ item.name }}</td>
+                <td> {{ item.isoCode }}</td>
+                <td> {{ item.isDeleted ? "Да" : "Нет" }}</td>
+                <td> {{ item.createdAt | date: 'dd.MM.yyyy hh:mm:ss' }}</td>
+                <td> {{ item.updatedAt | date: 'dd.MM.yyyy hh:mm:ss' }}</td>
+                <td>
+                    <div>
+                        <!--                        <button (click)="editItem(item)" class="p-button p-button-text mr-2" icon="pi pi-pencil"-->
+                        <!--                                pButton title="Редактировать"></button>-->
+                        <!--                        <ng-container *ngIf="!item.isDeleted">-->
+                        <!--                            <button (click)="deleteItem(item.id, item.name)" class="p-button p-button-text"-->
+                        <!--                                    icon="pi pi-trash" pButton title="Удалить"></button>-->
+                        <!--                        </ng-container>-->
+                        <!--                        <ng-container *ngIf="item.isDeleted">-->
+                        <!--                            <button (click)="restoreItem(item.id, item.name)" class="p-button p-button-text"-->
+                        <!--                                    icon="pi pi-refresh" pButton title="Восстановить"></button>-->
+                        <!--                        </ng-container>-->
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
