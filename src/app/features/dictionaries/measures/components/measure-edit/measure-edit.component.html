@@ -1,0 +1,23 @@
+<app-base-entity-edit-container
+    [loadState]="loaded()"
+    [savingState]="saving()"
+    (cancelClick)="cancel()"
+    (loadDataClick)="loadData()"
+    (submitClick)="submit()">
+    @if (dataForm) {
+        <div [formGroup]="dataForm" class="p-fluid">
+
+            <div class="field">
+                <label class="block text-900 font-medium mb-2" for="name">Название</label>
+                <input [ngClass]="{ 'ng-invalid ng-dirty':dataForm.controls.name.invalid }"
+                       [style]="{'min-width': '100%'}"
+                       formControlName="name"
+                       id="name"
+                       pInputText
+                       type="text"/>
+                <app-field-validation-common-errors [control]="dataForm.controls.name" maxLength="64"/>
+            </div>
+
+        </div>
+    }
+</app-base-entity-edit-container>

@@ -86,7 +86,7 @@ export abstract class BaseFilterCrudListComponent<
                 mode: EntityEditMode.Create
             },
         }).onClose
-            .pipe(filter(result => !!result))
+            .pipe(filter(result => result !== undefined))
             .subscribe(_ => this.loadItems());
     }
 
@@ -99,7 +99,7 @@ export abstract class BaseFilterCrudListComponent<
                 id: item.id,
             },
         }).onClose
-            .pipe(filter(result => !!result))
+            .pipe(filter(result => result !== undefined))
             .subscribe(_ => this.loadItems());
     }
 }

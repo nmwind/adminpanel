@@ -1,13 +1,13 @@
 import { inject } from "@angular/core";
-import { LanguageListItemModel } from "@api/models/dictionaries/languages";
-import { LanguageHttpService } from "@api/services";
+import { MeasureListItemModel } from "@api/models/dictionaries/measures";
+import { MeasureHttpService } from "@api/services";
 import { BaseDataSource } from "@common/data/base-data-source";
 import { Filter, Paging } from "@common/models/lists";
 import { finalize, takeUntil } from "rxjs";
 
-export class LanguageDataSource extends BaseDataSource<LanguageListItemModel, Filter> {
+export class MeasureDataSource extends BaseDataSource<MeasureListItemModel, Filter> {
 
-    constructor(private readonly languageHttpService = inject(LanguageHttpService)) {
+    constructor(private readonly measureHttpService = inject(MeasureHttpService)) {
         super();
     }
 
@@ -15,7 +15,7 @@ export class LanguageDataSource extends BaseDataSource<LanguageListItemModel, Fi
         this.loadingSignal.set(true);
         this.errorSignal.set(false);
 
-        this.languageHttpService.list({
+        this.measureHttpService.list({
             searchValue: filter.search.value,
             isDeleted: filter.isDeleted.value,
             sortField: paging.sortField,

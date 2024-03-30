@@ -1,0 +1,85 @@
+<div class="card">
+    <p-table (onLazyLoad)="lazyLoadItems($event)"
+             [lazy]="true"
+             [loading]="dataSource.loading()"
+             [paginator]="true"
+             [rowHover]="true"
+             [rowsPerPageOptions]="paging.sizes"
+             [rows]="paging.sizes[0]"
+             [showCurrentPageReport]="true"
+             [sortOrder]="-1"
+             [totalRecords]="dataSource.total()"
+             [value]="dataSource.items()"
+             currentPageReportTemplate="Всего {totalRecords} элементов"
+             dataKey="id"
+             responsiveLayout="scroll"
+             sortField="createdAt">
+
+        <ng-template pTemplate="caption">
+            <app-toolbar>
+                <ng-container app-toolbar-left>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input #searchValue class="w-full" pInputText
+                               placeholder="Поиск..."
+                               type="text"/>
+                    </span>
+                    <p-dropdown (onChange)="loadItems()"
+                                [(ngModel)]="filter.isDeleted.value"
+                                [options]="filter.isDeleted.values"
+                                class="w-full"
+                                optionLabel="name"
+                                optionValue="value"></p-dropdown>
+                </ng-container>
+                <ng-container app-toolbar-right>
+                    <button (click)="newItem()" class="p-button" icon="pi pi-plus" label="Создать" pButton></button>
+                </ng-container>
+            </app-toolbar>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Название
+                    <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="isoCode">Код
+                    <p-sortIcon field="isoCode"></p-sortIcon>
+                </th>
+                <th style="width:120px;" pSortableColumn="isDeleted">Удален
+                    <p-sortIcon field="isDeleted"></p-sortIcon>
+                </th>
+                <th style="width:160px" pSortableColumn="createdAt">Создан
+                    <p-sortIcon field="createdAt"></p-sortIcon>
+                </th>
+                <th style="width:160px" pSortableColumn="updatedAt">Изменен
+                    <p-sortIcon field="updatedAt"></p-sortIcon>
+                </th>
+                <th style="width:150px;">Действия</th>
+            </tr>
+        </ng-template>
+
+        <ng-template let-item pTemplate="body">
+            <tr>
+                <td> {{ item.name }}</td>
+                <td> {{ item.isoCode }}</td>
+                <td> {{ item.isDeleted ? "Да" : "Нет" }}</td>
+                <td> {{ item.createdAt | date: 'dd.MM.yyyy hh:mm:ss' }}</td>
+                <td> {{ item.updatedAt | date: 'dd.MM.yyyy hh:mm:ss' }}</td>
+                <td>
+                    <button (click)="editItem(item)" class="p-button p-button-text mr-2" icon="pi pi-pencil"
+                            pButton title="Редактировать"></button>
+                    @if (item.isDeleted) {
+                        <button (click)="restoreItem(item.id, item.name)" class="p-button p-button-text"
+                                icon="pi pi-refresh" pButton title="Восстановить"></button>
+                    } @else {
+                        <button (click)="deleteItem(item.id, item.name)" class="p-button p-button-text"
+                                icon="pi pi-trash" pButton title="Удалить"></button>
+                    }
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-toast/>
+<p-confirmDialog [baseZIndex]="10000" [style]="{width: '30vw'}" rejectButtonStyleClass="p-button-text"/>

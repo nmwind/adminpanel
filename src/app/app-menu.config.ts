@@ -34,8 +34,8 @@ export const AppMenuConfig = [
         items: [
             {label: "Типы документов", icon: "pi pi-fw pi-book", routerLink: ["/"]},
             {label: "Направления", icon: "pi pi-fw pi-directions", routerLink: ["/"]},
-            {label: "Единицы измерения", icon: "pi pi-fw pi-hourglass", routerLink: ["/"]},
-            {label: "Страны", icon: "pi pi-fw pi-globe", routerLink: ["/"]},
+            {label: "Единицы измерения", icon: "pi pi-fw pi-hourglass", routerLink: ["/dictionaries/measures"]},
+            {label: "Страны", icon: "pi pi-fw pi-globe", routerLink: ["/dictionaries/countries"]},
             {label: "Языки", icon: "pi pi-fw pi-language", routerLink: ["/dictionaries/languages"]},
             {label: "Токены для отчетов", icon: "pi pi-fw pi-slack", routerLink: ["/"]},
         ]

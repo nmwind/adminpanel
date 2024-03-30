@@ -49,7 +49,7 @@ export abstract class CrudBaseHttpService<
         if (!init) return new HttpParams();
         let fromObject: any = {};
         Object.keys(init)
-            .filter(field => !!init[field])
+            .filter(field => init[field] !== undefined)
             .forEach((field) => {
                 fromObject[field] = (<any>init)[field];
             });
