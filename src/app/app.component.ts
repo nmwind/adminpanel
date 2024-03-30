@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
 import { RouterOutlet } from '@angular/router';
+import { WatchHttpErrorsComponent } from "@features/watch-http-errors";
+import { MessageService, PrimeNGConfig } from 'primeng/api';
+
 
 @Component({
+    imports: [RouterOutlet, WatchHttpErrorsComponent],
+    providers: [MessageService],
     selector: 'app-root',
-    templateUrl: './app.component.html',
     standalone: true,
-    imports: [RouterOutlet]
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) { }
+    constructor(private readonly primengConfig: PrimeNGConfig) {
+    }
 
     ngOnInit() {
         this.primengConfig.ripple = true;
