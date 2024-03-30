@@ -1,4 +1,3 @@
-import { load } from "@angular-devkit/build-angular/src/utils/server-rendering/esm-in-memory-loader/loader-hooks";
 import { Component, EventEmitter, input, InputSignal, Output } from '@angular/core';
 import { ButtonModule } from "primeng/button";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
