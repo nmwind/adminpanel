@@ -43,7 +43,8 @@ export class WatchHttpErrorsComponent {
             severity: "error",
             sticky: true,
             icon: "pi-hashtag",
-            summary: title,
+            closable: true,
+            summary: title.length > 30 ? title.substring(0, 30) : title,
             detail: details,
         });
     }

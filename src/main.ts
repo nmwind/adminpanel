@@ -24,7 +24,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
     providers: [
         provideHttpClient(
-            withInterceptors([watchHttpErrorInterceptor]),
+            // withInterceptors([watchHttpErrorInterceptor]),
         ),
         provideAnimations(),
         importProvidersFrom(AppRoutingModule),
