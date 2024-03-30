@@ -1,8 +1,13 @@
 import { Component, inject, Inject, Type } from "@angular/core";
 import { BaseFilterListComponent } from "@common/behaviours/base-filter-list-component";
+import {
+    EntityEditDialogConfig,
+    EntityEditMode,
+    EntityIdDescriptor,
+    ListHttpServiceDescriptor
+} from "@common/behaviours/types";
 import { BaseDataSource } from "@common/data/base-data-source";
-import { BaseListHttpService } from "@common/models/base-list-http-service";
-import { EntityIdentifierType } from "@common/models/entity-identifier-type";
+import { PropertyType } from "@common/helpers/special-types";
 import { Filter } from "@common/models/lists";
 import { ConfirmationService } from "primeng/api";
 import { DialogService } from "primeng/dynamicdialog";
@@ -12,11 +17,12 @@ import { takeUntil } from "rxjs/operators";
 @Component({template: ''})
 export abstract class BaseFilterCrudListComponent<
     TListItemModel extends {
-        id: EntityIdentifierType
+        id: EntityIdDescriptor
     },
-    TBaseHttpService extends BaseListHttpService,
+    TBaseHttpService extends ListHttpServiceDescriptor,
     TDataSource extends BaseDataSource<TListItemModel, TDataSourceFilter>,
-    TDataSourceFilter extends Filter
+    TDataSourceFilter extends Filter,
+    IdType = PropertyType<TListItemModel, "id">
 > extends BaseFilterListComponent<TListItemModel, TDataSource, TDataSourceFilter> {
     protected constructor(
         httpType: Type<TBaseHttpService>,
@@ -29,7 +35,7 @@ export abstract class BaseFilterCrudListComponent<
         super(dataSource, filter);
     }
 
-    protected deleteItem(key: EntityIdentifierType, title: string) {
+    protected deleteItem(key: EntityIdDescriptor, title: string) {
         this.confirmationService.confirm({
             message: `Вы действительно хотите удалить "${title}"?`,
             header: 'Подтверждение удаления',
@@ -38,45 +44,47 @@ export abstract class BaseFilterCrudListComponent<
             rejectLabel: 'Нет',
             accept: () => this.baseHttpService.delete(key)
                 .pipe(takeUntil(this.destroy$))
-                .subscribe(result => {
-                    // if (result.success) {
-                    //     this.messageService.add({severity: 'info', detail: 'Запись удалена'});
-                    //     this.loadItems();
-                    // } else {
-                    //     console.log(result.error);
-                    //     this.messageService.add({severity: 'error', detail: 'Не удалось удалить запись'});
-                    // }
+                .subscribe({
+                    next: () => {
+                        this.messageService.add({severity: 'info', detail: 'Запись удалена'});
+                        this.loadItems();
+                    },
+                    error: () => {
+                        this.messageService.add({severity: 'error', detail: 'Не удалось удалить запись'});
+                    }
                 })
         });
     }
 
-    protected restoreItem(key: EntityIdentifierType, title: string) {
+    protected restoreItem(key: EntityIdDescriptor, title: string) {
         this.confirmationService.confirm({
-                message: `Вы действительно хотите восстановить "${title}"?`,
-                header: 'Подтверждение восстановления',
-                icon: 'pi pi-info-circle',
-                acceptLabel: 'Да',
-                rejectLabel: 'Нет',
-                accept: () => this.baseHttpService.restore(key)
-                    .pipe(takeUntil(this.destroy$))
-                    .subscribe(result => {
-                        // if (result.success) {
-                        //     this.messageService.add({severity: 'info', detail: 'Запись восстановлена'});
-                        //     this.loadItems();
-                        // } else {
-                        //     console.log(result.error);
-                        //     this.messageService.add({severity: 'error', detail: 'Не удалось восстановить запись'});
-                        // }
-                    })
-            }
-        );
+            message: `Вы действительно хотите восстановить "${title}"?`,
+            header: 'Подтверждение восстановления',
+            icon: 'pi pi-info-circle',
+            acceptLabel: 'Да',
+            rejectLabel: 'Нет',
+
+            accept: () => this.baseHttpService.restore(key)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe({
+                    next: () => {
+                        this.messageService.add({severity: 'info', detail: 'Запись восстановлена'});
+                        this.loadItems();
+                    },
+                    error: () => {
+                        this.messageService.add({severity: 'error', detail: 'Не удалось восстановить запись'});
+                    }
+                })
+        });
     }
 
     protected newItemDialog<TEditComponent>(component: Type<TEditComponent>, width: string = "30%") {
         this.dialogService.open(component, {
             header: "Создание",
             width: width,
-            data: {},
+            data: <EntityEditDialogConfig<IdType>>{
+                mode: EntityEditMode.Create
+            },
         }).onClose
             .pipe(filter(result => !!result))
             .subscribe(_ => this.loadItems());
@@ -86,7 +94,10 @@ export abstract class BaseFilterCrudListComponent<
         this.dialogService.open(component, {
             header: "Изменение",
             width: width,
-            data: item,
+            data: <EntityEditDialogConfig<IdType>>{
+                mode: EntityEditMode.Edit,
+                id: item.id,
+            },
         }).onClose
             .pipe(filter(result => !!result))
             .subscribe(_ => this.loadItems());

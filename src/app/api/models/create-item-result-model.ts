@@ -1,3 +1,3 @@
-export interface CreateItemResultModel<T extends string | number> {
+export interface CreateItemResultModel<T> {
     id: T;
 }

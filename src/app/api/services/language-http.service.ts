@@ -17,8 +17,7 @@ export class LanguageHttpService extends CrudBaseHttpService<
     LanguageListItemModel,
     LanguageModel,
     LanguageUpdateModel,
-    LanguageCreateModel,
-    CreateItemResultModel<number>
+    LanguageCreateModel
 > {
     constructor() {
         super(API_URL);

@@ -1,24 +1,27 @@
 import { HttpParams } from "@angular/common/http";
 import { ListQueryParameters, PageResult } from "@api";
+import { CreateItemResultModel } from "@api/models/create-item-result-model";
 import { BaseHttpService } from "@api/services/base-http.service";
+import { PropertyType } from "@common/helpers/special-types";
 import { Observable } from "rxjs";
 
-type IdType = number | string;
-
 export abstract class CrudBaseHttpService<
-    TListItemModel,
+    TListItemModel extends {
+        id: number | string
+    },
     TViewModel,
     TEditModel,
     TCreateModel,
-    TCreateResultModel
+    IdType = PropertyType<TListItemModel, "id">,
+    TCreateResultModel = CreateItemResultModel<IdType>
 > extends BaseHttpService {
 
     create(model: TCreateModel): Observable<TCreateResultModel> {
         return this.http.post<TCreateResultModel>(`${this.apiUrl}`, model);
     }
 
-    update(model: TEditModel): Observable<unknown> {
-        return this.http.put(`${this.apiUrl}`, model);
+    update(id: IdType, model: TEditModel): Observable<unknown> {
+        return this.http.put(`${this.apiUrl}/${id}`, model);
     }
 
     get(id: IdType): Observable<TViewModel> {

@@ -12,9 +12,9 @@ import { IconService } from './app/demo/service/icon.service';
 import { NodeService } from './app/demo/service/node.service';
 import { PhotoService } from './app/demo/service/photo.service';
 import { ProductService } from './app/demo/service/product.service';
+import '@common/helpers/extensions/observable-extensions';
 
-
-import { environment } from './environments/environment';
+import { environment } from '@environment';
 
 if (environment.production) {
     enableProdMode();

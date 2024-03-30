@@ -1,0 +1,15 @@
+<app-field-validation-server-error [control]="control()"/>
+@if (hasValidators()) {
+    <app-field-validation-error [control]="control()" message="Поле не может быть пустым"
+                                validator="required"/>
+    <app-field-validation-error [control]="control()" message="Не соответствует шаблону"
+                                validator="pattern"/>
+    @if (minLength()) {
+        <app-field-validation-error [control]="control()" message="Минимальная длина {{minLength()}}"
+                                    validator="minlength"/>
+    }
+    @if (maxLength()) {
+        <app-field-validation-error [control]="control()" message="Максимальная длина {{maxLength()}}"
+                                    validator="maxlength"/>
+    }
+}

@@ -1,0 +1,42 @@
+<p-messages>
+</p-messages>
+@switch (loadState()) {
+    @case (undefined) {
+        <p-progressSpinner class="flex flex-1"></p-progressSpinner>
+    }
+    @case (true) {
+        <ng-content></ng-content>
+
+        @if (useButtons) {
+            <div class="flex justify-content-end">
+                <button (click)="submitClick.emit()"
+                        [disabled]="savingState()"
+                        class="p-button-text"
+                        [icon]="savingState() ? 'pi pi-spin pi-spinner' : 'pi pi-pencil'"
+                        label="Сохранить"
+                        pButton></button>
+
+                <button (click)="cancelClick.emit()"
+                        class="p-button-text"
+                        icon="pi pi-times"
+                        label="Отмена"
+                        pButton></button>
+            </div>
+        }
+    }
+    @case (false) {
+        <div class="p-message p-message-error">
+            <div class="p-message-wrapper">
+                <div class="p-message">
+                    <div class="p-message-error">
+                        <span class="p-message-icon pi pi-times-circle"></span>
+                        <span class="p-message-text">Не удалось загрузить данные. Попробуйте, <a
+                            (click)="loadDataClick.emit()" href="javascript:">перезагрузить</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<p-confirmDialog [baseZIndex]="10000" [style]="{width: '25vw'}"
+                 rejectButtonStyleClass="p-button-text"></p-confirmDialog>

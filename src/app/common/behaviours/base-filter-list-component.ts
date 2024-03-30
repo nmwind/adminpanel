@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, Inject, OnDestroy, ViewChild } from "@angular/core";
+import { Component, effect, ElementRef, inject, Inject, OnDestroy, viewChild } from "@angular/core";
 import { BaseDataSource } from "@common/data/base-data-source";
 import { Filter, Paging } from "@common/models/lists";
 
@@ -13,16 +13,35 @@ export abstract class BaseFilterListComponent<
     TListItemModel,
     TDataSource extends BaseDataSource<TListItemModel, TDataSourceFilter>,
     TDataSourceFilter extends Filter
-> implements AfterViewInit, OnDestroy {
+> implements OnDestroy {
     protected readonly paging = new Paging();
     protected readonly destroy$ = new Subject<void>();
-    @ViewChild("searchValue") private readonly searchValueInput: ElementRef<HTMLInputElement>;
+    private readonly searchValueInput = viewChild<ElementRef<HTMLInputElement>>("searchValue");
 
     protected constructor(
         @Inject(String) protected readonly dataSource: TDataSource,
         @Inject(String) protected readonly filter: TDataSourceFilter,
         protected readonly messageService: MessageService = inject(MessageService)
     ) {
+        effect(() => {
+            const target = this.searchValueInput();
+            if (target) {
+                fromEvent(target.nativeElement, "keyup").pipe(
+                    takeUntil(this.destroy$),
+                    debounceTime(300),
+                    distinctUntilChanged()
+                ).subscribe(() => {
+                    this.filter.search.value = target.nativeElement.value;
+                    this.loadItems();
+                });
+            }
+        });
+
+        effect(() => {
+            if (this.dataSource.error()) {
+                this.messageService.add({severity: "error", detail: "Не удалось загрузить данные"});
+            }
+        });
         // this.dataSource.error$.pipe(
         //     takeUntil(this.destroy$),
         //     filter2(error => error)
@@ -30,19 +49,6 @@ export abstract class BaseFilterListComponent<
     }
 
     abstract ngOnDestroy(): void;
-
-    ngAfterViewInit() {
-        if (this.searchValueInput) {
-            fromEvent(this.searchValueInput.nativeElement, "keyup").pipe(
-                takeUntil(this.destroy$),
-                debounceTime(300),
-                distinctUntilChanged()
-            ).subscribe(() => {
-                this.filter.search.value = this.searchValueInput.nativeElement.value;
-                this.loadItems();
-            });
-        }
-    }
 
     public loadItems() {
         this.dataSource.load(this.filter, this.paging);
