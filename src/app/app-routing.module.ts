@@ -48,16 +48,22 @@ const demo: Route[] = [
                     children: [
                         {
                             path: "dashboard",
+                            title: "Главная",
+                            data: {crumb: {}},
                             loadComponent: () => import("./features/dashboard/components/dashboard/dashboard.component").then(c => c.DashboardComponent)
                         },
                         {
-                            path: "dictionaries", loadChildren: () => import("@features/dictionaries")
+                            path: "dictionaries",
+                            title: "Справочники",
+                            data: {crumb: {disabled: true}},
+                            loadChildren: () => import("@features/dictionaries")
                         },
                         {path: "", redirectTo: "dashboard", pathMatch: "prefix"}
                     ],
                 },
                 {
                     path: 'auth',
+                    title: "Авторизация",
                     loadChildren: () => import('./features/auth')
                 },
                 {

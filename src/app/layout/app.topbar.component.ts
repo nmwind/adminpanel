@@ -1,8 +1,9 @@
+import { NgClass } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
-import { NgClass } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { AppPageService } from "./service/app.page.service";
 
 @Component({
     selector: 'app-topbar',
@@ -20,5 +21,9 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService) { }
+    constructor(
+        protected readonly layoutService: LayoutService,
+        protected readonly pageService: AppPageService,
+    ) {
+    }
 }

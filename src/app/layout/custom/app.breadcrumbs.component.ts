@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
 import { BreadcrumbModule } from "primeng/breadcrumb";
-import { LayoutService } from "../service/app.layout.service";
+import { filter } from "rxjs";
+
+export interface Breadcrumb {
+    label: string;
+    url: string;
+    link: boolean;
+}
 
 @Component({
     selector: 'app-breadcrumbs',
@@ -12,22 +19,56 @@ import { LayoutService } from "../service/app.layout.service";
     ],
     standalone: true
 })
-export class AppBreadcrumbsComponent implements OnInit {
+export class AppBreadcrumbsComponent {
+    protected readonly items = signal<MenuItem[]>([]);
+    protected readonly home: MenuItem = {icon: 'pi pi-microsoft', routerLink: '/'};
 
-    items: MenuItem[] | undefined;
-
-    home: MenuItem | undefined;
-
-    constructor(public layoutService: LayoutService) {
+    constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd)
+        ).subscribe(() => {
+            const items = this.getItems(this.activatedRoute.root);
+            this.items.set(items);
+        });
     }
 
-    ngOnInit() {
-        this.items = [{label: 'Computer'},
-            {label: 'Notebook'},
-            {label: 'Accessories'},
-            {label: 'Backpacks'},
-            {label: 'Item'}];
+    private getItems(route: ActivatedRoute, url: string = '', items: MenuItem[] = []) {
+        if (route.children.length === 0) return items;
 
-        this.home = {icon: 'pi pi-microsoft', routerLink: '/'};
+        const child = route.firstChild;
+        const routeURL = child.snapshot.url.map(segment => segment.path).join('/');
+
+        if (routeURL !== '') {
+            url = `${url}/${routeURL}`;
+            const crumb = child.snapshot.data["crumb"];
+            items.push({
+                label: crumb?.title ?? child.snapshot.routeConfig.title,
+                disabled: crumb?.disabled,
+                url: crumb?.url ?? url,
+            });
+        }
+
+        return this.getItems(child, url, items);
     }
 }
+
+
+// constructor(readonly router: Router, readonly route: ActivatedRoute) {
+//     router.events.pipe(
+//         filter((event) => event instanceof ActivationEnd || event instanceof NavigationEnd),
+//         pairwise(),
+//         filter((events: [ActivationEnd, NavigationEnd]) => events[0] instanceof ActivationEnd && events[1] instanceof NavigationEnd)
+//     ).subscribe((events: [ActivationEnd, NavigationEnd]) => {
+//             const route = events[0].snapshot;
+//             console.log(route);
+//             //const crumbs = this.getCrumbs(router.routerState.snapshot.root, []);
+//         }
+//     );
+//
+//
+//     // this.items = [{label: 'Computer'},
+//     //     {label: 'Notebook'},
+//     //     {label: 'Accessories'},
+//     //     {label: 'Backpacks'},
+//     //     {label: 'Item'}];
+// }

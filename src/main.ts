@@ -1,11 +1,11 @@
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
+import { provideHttpClient } from "@angular/common/http";
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from "@angular/platform-browser/animations";
+import { TitleStrategy } from "@angular/router";
 
 import { environment } from '@environment';
-import { watchHttpErrorInterceptor } from "@features/watch-http-errors";
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 import { CountryService } from './app/demo/service/country.service';
@@ -16,6 +16,8 @@ import { NodeService } from './app/demo/service/node.service';
 import { PhotoService } from './app/demo/service/photo.service';
 import { ProductService } from './app/demo/service/product.service';
 import '@common/helpers/extensions/observable-extensions';
+import { AppPageService } from "./app/layout/service/app.page.service";
+import { PageTitleStrategy } from "./app/layout/service/page-title-strategy";
 
 if (environment.production) {
     enableProdMode();
@@ -28,6 +30,8 @@ bootstrapApplication(AppComponent, {
         ),
         provideAnimations(),
         importProvidersFrom(AppRoutingModule),
+        AppPageService,
+        {provide: TitleStrategy, useClass: PageTitleStrategy},
         {provide: LocationStrategy, useClass: PathLocationStrategy},
 
         CountryService, CustomerService, EventService, IconService, NodeService,
