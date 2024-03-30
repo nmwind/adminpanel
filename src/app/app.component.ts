@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WatchHttpErrorsComponent } from "@features/watch-http-errors";
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 
 
 @Component({
-    imports: [RouterOutlet, WatchHttpErrorsComponent],
+    imports: [RouterOutlet],
     providers: [MessageService],
     selector: 'app-root',
     standalone: true,
