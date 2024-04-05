@@ -20,54 +20,81 @@
                 <ng-container app-toolbar-left>
                     <span class="p-input-icon-left">
                         <i class="pi pi-search"></i>
-                        <input #searchValue class="w-full" pInputText
-                               placeholder="Поиск..."
+                        <input #searchValue
+                               pInputText
+                               placeholder="поиск..."
                                type="text"/>
                     </span>
-                    <p-dropdown [(ngModel)]="filter.isDeleted.value"
+                    <p-dropdown (onChange)="loadItems()"
+                                [(ngModel)]="filter.isDeleted.value"
                                 [options]="filter.isDeleted.values"
                                 optionLabel="name"
                                 optionValue="value"
-                                placeholder="Все записи"
+                                placeholder="все записи"
+                                showClear="true"/>
+                    <p-dropdown (onChange)="loadItems()"
+                                [(ngModel)]="filter.languageId.value"
+                                appFilterList="Languages"
+                                placeholder="язык"
+                                showClear="true"/>
+                    <p-dropdown (onChange)="loadItems()"
+                                [(ngModel)]="filter.isPublished.value"
+                                [options]="filter.isPublished.values"
+                                optionLabel="name"
+                                optionValue="value"
+                                placeholder="публикации"
                                 showClear="true"/>
                 </ng-container>
                 <ng-container app-toolbar-right>
-                    <button (click)="newItem()" class="p-button" icon="pi pi-plus" label="Создать" pButton></button>
+                    <button routerLink="./new" class="p-button" icon="pi pi-plus" label="Создать" pButton></button>
                 </ng-container>
             </app-toolbar>
         </ng-template>
 
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name">Название
-                    <p-sortIcon field="name"></p-sortIcon>
+                <th>Обложка</th>
+                <th pSortableColumn="title">Заголовок
+                    <p-sortIcon field="title"></p-sortIcon>
                 </th>
-                <th pSortableColumn="isoCode">Код
-                    <p-sortIcon field="isoCode"></p-sortIcon>
+                <th pSortableColumn="description">Описание
+                    <p-sortIcon field="description"></p-sortIcon>
                 </th>
-                <th style="width:120px;" pSortableColumn="isDeleted">Удален
+                <th pSortableColumn="languageId">Язык
+                    <p-sortIcon field="languageId"></p-sortIcon>
+                </th>
+
+                <th style="max-width:150px;" pSortableColumn="isPublished">Опубликован
+                    <p-sortIcon field="isPublished"></p-sortIcon>
+                </th>
+                <th style="max-width:120px;" pSortableColumn="isDeleted">Удален
                     <p-sortIcon field="isDeleted"></p-sortIcon>
                 </th>
-                <th style="width:160px" pSortableColumn="createdAt">Создан
+                <th style="max-width:160px" pSortableColumn="createdAt">Создан
                     <p-sortIcon field="createdAt"></p-sortIcon>
                 </th>
-                <th style="width:160px" pSortableColumn="updatedAt">Изменен
+                <th style="max-width:160px" pSortableColumn="updatedAt">Изменен
                     <p-sortIcon field="updatedAt"></p-sortIcon>
                 </th>
-                <th style="width:150px;">Действия</th>
+                <th style="max-width:150px;">Действия</th>
             </tr>
         </ng-template>
 
         <ng-template let-item pTemplate="body">
             <tr>
-                <td> {{ item.name }}</td>
-                <td> {{ item.isoCode }}</td>
+                <td> @if (item.image) {
+                    <img [ngSrc]="item.image.url" alt="" width="40" height="40"/>
+                }</td>
+                <td> {{ item.title }}</td>
+                <td> {{ item.description }}</td>
+                <td> {{ item.languageId | listItemEnumDisplay: "Languages" }}</td>
+                <td> {{ item.isPublished ? "Опубликован" : "Нет" }}</td>
                 <td> {{ item.isDeleted ? "Удален" : "" }}</td>
                 <td> {{ item.createdAt | date: 'dd.MM.yyyy hh:mm:ss' }}</td>
                 <td> {{ item.updatedAt | date: 'dd.MM.yyyy hh:mm:ss' }}</td>
                 <td>
-                    <button (click)="editItem(item)" class="p-button p-button-text mr-2" icon="pi pi-pencil"
-                            pButton title="Редактировать"></button>
+                    <button class="p-button p-button-text" icon="pi pi-pencil" pButton routerLink="./{{item.id}}/edit"
+                            title="Редактировать"></button>
                     @if (item.isDeleted) {
                         <button (click)="restoreItem(item.id, item.name)" class="p-button p-button-text"
                                 icon="pi pi-refresh" pButton title="Восстановить"></button>

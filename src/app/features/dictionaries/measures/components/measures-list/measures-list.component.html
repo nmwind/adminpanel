@@ -24,12 +24,12 @@
                                placeholder="Поиск..."
                                type="text"/>
                     </span>
-                    <p-dropdown (onChange)="loadItems()"
-                                [(ngModel)]="filter.isDeleted.value"
+                    <p-dropdown [(ngModel)]="filter.isDeleted.value"
                                 [options]="filter.isDeleted.values"
-                                class="w-full"
                                 optionLabel="name"
-                                optionValue="value"></p-dropdown>
+                                optionValue="value"
+                                placeholder="Все записи"
+                                showClear="true"/>
                 </ng-container>
                 <ng-container app-toolbar-right>
                     <button (click)="newItem()" class="p-button" icon="pi pi-plus" label="Создать" pButton></button>
@@ -58,7 +58,7 @@
         <ng-template let-item pTemplate="body">
             <tr>
                 <td> {{ item.name }}</td>
-                <td> {{ item.isDeleted ? "Да" : "Нет" }}</td>
+                <td> {{ item.isDeleted ? "Удален" : "" }}</td>
                 <td> {{ item.createdAt | date: 'dd.MM.yyyy hh:mm:ss' }}</td>
                 <td> {{ item.updatedAt | date: 'dd.MM.yyyy hh:mm:ss' }}</td>
                 <td>

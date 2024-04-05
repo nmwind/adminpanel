@@ -53,6 +53,12 @@ const demo: Route[] = [
                             loadComponent: () => import("./features/dashboard/components/dashboard/dashboard.component").then(c => c.DashboardComponent)
                         },
                         {
+                            path: "monitoring",
+                            title: "Мониторинг",
+                            data: {crumb: {disabled: true}},
+                            loadChildren: () => import("@features/monitoring")
+                        },
+                        {
                             path: "dictionaries",
                             title: "Справочники",
                             data: {crumb: {disabled: true}},

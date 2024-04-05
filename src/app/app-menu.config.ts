@@ -5,21 +5,21 @@ export const AppMenuConfig = [
             {label: "Главная", icon: "pi pi-fw pi-microsoft", routerLink: ["/"]}
         ],
     },
-    // {
-    //     label: "Мониторинг",
-    //     items: [
-    //         {label: "Объекты", icon: "pi pi-fw pi-home", routerLink: ["/"]},
-    //         {label: "Документы", icon: "pi pi-fw pi-file", routerLink: ["/"]},
-    //         {label: "Пользователи", icon: "pi pi-fw pi-users", routerLink: ["/"]},
-    //         {label: "Промокоды", icon: "pi pi-fw pi-ticket", routerLink: ["/"]},
-    //         {label: "Администраторы", icon: "pi pi-fw pi-shield", routerLink: ["/"]},
-    //         {label: "Истории", icon: "pi pi-fw pi-instagram", routerLink: ["/"]},
-    //         {label: "Услуги", icon: "pi pi-fw pi-server", routerLink: ["/"]},
-    //         {label: "Идеи", icon: "pi pi-fw pi-twitter", routerLink: ["/"]},
-    //         {label: "Претензии", icon: "pi pi-fw pi-thumbs-down", routerLink: ["/"]},
-    //         {label: "Чаты", icon: "pi pi-fw pi-comments", routerLink: ["/"]},
-    //     ]
-    // },
+    {
+        label: "Мониторинг",
+        items: [
+            // {label: "Объекты", icon: "pi pi-fw pi-home", routerLink: ["/"]},
+            // {label: "Документы", icon: "pi pi-fw pi-file", routerLink: ["/"]},
+            // {label: "Пользователи", icon: "pi pi-fw pi-users", routerLink: ["/"]},
+            // {label: "Промокоды", icon: "pi pi-fw pi-ticket", routerLink: ["/"]},
+            // {label: "Администраторы", icon: "pi pi-fw pi-shield", routerLink: ["/"]},
+            {label: "Истории", icon: "pi pi-fw pi-instagram", routerLink: ["/monitoring/stories"]},
+            {label: "Услуги", icon: "pi pi-fw pi-server", routerLink: ["/"]},
+            // {label: "Идеи", icon: "pi pi-fw pi-twitter", routerLink: ["/"]},
+            // {label: "Претензии", icon: "pi pi-fw pi-thumbs-down", routerLink: ["/"]},
+            // {label: "Чаты", icon: "pi pi-fw pi-comments", routerLink: ["/"]},
+        ]
+    },
     // {
     //     label: "Продукты",
     //     items: [
