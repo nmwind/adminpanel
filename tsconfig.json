@@ -8,6 +8,7 @@
             "@api": ["src/app/api"],
             "@common/*": ["src/app/common/*"],
             "@features/*": ["src/app/features/*"],
+            "@modules/*": ["src/app/modules/*"],
         },
         "baseUrl": "./",
         "outDir": "./dist/out-tsc",

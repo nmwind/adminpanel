@@ -1,0 +1,73 @@
+@if (dataForm()) {
+    <div [formGroup]="dataForm()" class="p-fluid">
+
+        <div class="field text-center">
+            <app-image-input [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.image.invalid }"
+                             formControlName="image"
+                             preview="true"/>
+            <app-field-validation-common-errors [control]="dataForm().controls.image"/>
+        </div>
+
+        <div class="field">
+            <label for="title">Заголовок</label>
+            <input [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.title.invalid }"
+                   formControlName="title"
+                   id="title"
+                   pInputText/>
+            <app-field-validation-common-errors [control]="dataForm().controls.title"/>
+        </div>
+
+        <div class="field">
+            <label for="description">Описание</label>
+            <textarea [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.description.invalid }"
+                      rows="3"
+                      formControlName="description"
+                      id="description"
+                      pInputTextarea></textarea>
+            <app-field-validation-common-errors [control]="dataForm().controls.description"/>
+        </div>
+
+        <div class="field">
+            <label for="languageId">Язык</label>
+            <p-dropdown [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.languageId.invalid }"
+                        formControlName="languageId"
+                        appLoadList="Languages"
+                        id="languageId"/>
+            <app-field-validation-common-errors [control]="dataForm().controls.languageId"/>
+        </div>
+
+        <div class="field">
+            <label for="orderIndex">Order index</label>
+            <p-inputNumber [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.orderIndex.invalid }"
+                           showButtons="true"
+                           showClear="true"
+                           inputId="minmax-buttons"
+                           formControlName="orderIndex"
+                           id="orderIndex"/>
+            <app-field-validation-common-errors [control]="dataForm().controls.orderIndex"/>
+        </div>
+
+
+        <div class="grid">
+            <div class="field col">
+                <label for="activityStart">Начало действия</label>
+                <p-calendar [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.activityStart.invalid }"
+                            showIcon="true"
+                            showClear="true"
+                            formControlName="activityStart"
+                            id="activityStart"/>
+                <app-field-validation-common-errors [control]="dataForm().controls.activityStart"/>
+            </div>
+            <div class="field col">
+                <label for="activityEnd">Конец действия</label>
+                <p-calendar [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.activityEnd.invalid }"
+                            showIcon="true"
+                            showClear="true"
+                            formControlName="activityEnd"
+                            id="activityEnd"/>
+                <app-field-validation-common-errors [control]="dataForm().controls.activityEnd"/>
+            </div>
+        </div>
+
+    </div>
+}

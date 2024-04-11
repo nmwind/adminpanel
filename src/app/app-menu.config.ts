@@ -68,7 +68,7 @@ export const AppMenuConfig = [
             {
                 label: 'Invalid State',
                 icon: 'pi pi-fw pi-exclamation-circle',
-                routerLink: ['/uikit/invalidstate']
+                routerLink: ['/demo/uikit/invalidstate']
             },
             {label: 'Button', icon: 'pi pi-fw pi-box', routerLink: ['/demo/uikit/button']},
             {label: 'Table', icon: 'pi pi-fw pi-table', routerLink: ['/demo/uikit/table']},

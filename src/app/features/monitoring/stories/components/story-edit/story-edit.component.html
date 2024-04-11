@@ -1,0 +1,55 @@
+<p-messages/>
+
+@switch (loadedSignal()) {
+    @case (undefined) {
+        <p-progressSpinner class="flex flex-1"></p-progressSpinner>
+    }
+    @case (true) {
+
+        <div class="card">
+            <div class="flex">
+                <div class="flex-1 flex align-items-start justify-content-start gap-2">
+                </div>
+                <div class="flex-none flex align-items-end justify-content-end gap-2">
+                    <button (click)="cancel()"
+                            class="p-button-text"
+                            icon="pi pi-arrow-left"
+                            label="Назад"
+                            pButton></button>
+
+                    <button (click)="submit()"
+                            [disabled]="savingSignal()"
+                            class="p-button"
+                            [icon]="savingSignal() ? 'pi pi-spin pi-spinner' : 'pi pi-pencil'"
+                            label="Сохранить"
+                            pButton></button>
+
+                </div>
+            </div>
+
+            <p-tabView>
+                <p-tabPanel header="Общая информация" class="line-height-3 m-0">
+                    <app-story-edit-general-tab [dataForm]="dataForm"/>
+                </p-tabPanel>
+                <p-tabPanel header="Слайды" class="line-height-3 m-0">
+                    <app-story-edit-slides-tab [dataFormArray]="dataForm.controls.slides" [createSlideForm]="this.createSlideForm"/>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    }
+    @case (false) {
+        <div class="p-message p-message-error">
+            <div class="p-message-wrapper">
+                <div class="p-message">
+                    <div class="p-message-error">
+                        <span class="p-message-icon pi pi-times-circle"></span>
+                        <span class="p-message-text">Не удалось загрузить данные. Попробуйте, <a
+                            (click)="loadData()" href="javascript:">перезагрузить</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<p-confirmDialog [baseZIndex]="10000" [style]="{width: '25vw'}" rejectButtonStyleClass="p-button-text"/>

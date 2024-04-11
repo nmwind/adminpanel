@@ -2,6 +2,7 @@ import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { ListItemEnumModel, ListName } from "@api/models/lists";
 import { ListHttpService } from "@api/services";
 import { isNullOrUndef } from "chart.js/helpers";
+import { Observable } from "rxjs";
 
 
 @Injectable({
@@ -32,11 +33,14 @@ export class ListsService {
         this.dataSignals[list].set(null);
     }
 
-    public load(list: ListName) {
-        this.listHttpService.get(list)
-            .subscribe(data => {
-                this.dataSignals[list].set(data);
-                this.loading[list] = null;
-            });
+    public load(list: ListName): Observable<ListItemEnumModel[]> {
+        const request$ = this.listHttpService.get(list);
+
+        request$.subscribe(data => {
+            this.dataSignals[list].set(data);
+            this.loading[list] = null;
+        });
+
+        return request$;
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LanguageEnumModel, ListItemEnumModel, ListName, MeasureEnumModel } from "@api/models/lists";
+import { ListItemEnumModel, ListName } from "@api/models/lists";
 import { BaseHttpService } from "@api/services/base-http.service";
 import { Observable } from "rxjs";
 
@@ -16,13 +16,5 @@ export class ListHttpService extends BaseHttpService {
     get(list: ListName): Observable<ListItemEnumModel[]> {
         const name: string = ListName[list];
         return this.http.get<ListItemEnumModel[]>(`${this.apiUrl}/${name}`);
-    }
-
-    getLanguages(): Observable<LanguageEnumModel[]> {
-        return this.http.get<LanguageEnumModel[]>(`${this.apiUrl}/languages`);
-    }
-
-    getMeasures(): Observable<MeasureEnumModel[]> {
-        return this.http.get<MeasureEnumModel[]>(`${this.apiUrl}/measures`);
     }
 }

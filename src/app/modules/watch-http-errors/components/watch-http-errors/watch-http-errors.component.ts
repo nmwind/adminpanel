@@ -1,6 +1,6 @@
 import { Component, effect } from '@angular/core';
 import { ErrorModel } from "@api/models/errors";
-import { WatchHttpErrorService } from "@features/watch-http-errors/services/watch-http-error.service";
+import { WatchHttpErrorService } from "@modules/watch-http-errors/services/watch-http-error.service";
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
 

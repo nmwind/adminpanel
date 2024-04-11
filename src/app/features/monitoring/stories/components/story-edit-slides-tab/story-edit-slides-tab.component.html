@@ -1,0 +1,36 @@
+@if (dataFormArray()) {
+    <button (click)="addSlide(0)"
+            class="p-button"
+            icon="pi pi-plus"
+            label="Добавить первый слайд"
+            pButton></button>
+
+    <div class="row align-items-center slide-panel my-4 gap-2">
+        @for (slideForm of dataFormArray().controls; let index = $index; track index; let isLast = $last; ) {
+            <div class="border-1 surface-border border-round p-3 col-lg-3">
+                <app-story-edit-slides-tab-slide [dataForm]="slideForm"/>
+
+                <span (click)="deleteSlide(index)"
+                      class="p-button-danger w-full"
+                      icon="pi pi-trash"
+                      [label]="'Удалить слайд #'+(index+1)"
+                      pButton></span>
+            </div>
+
+            <div class="w-min">
+                <span (click)="addSlide(index+1)"
+                      class="p-button-text"
+                      icon="pi pi-plus"
+                      pButton></span>
+
+                <span [ngClass]="{hidden:isLast}"
+                      (click)="moveSlide(index)"
+                      class="p-button-text"
+                      icon="pi pi-arrow-right-arrow-left"
+                      pButton></span>
+            </div>
+        } @empty {
+            <div style="min-height: 300px;"></div>
+        }
+    </div>
+}

@@ -1,0 +1,7 @@
+<div class="p-component p-image-preview-container" [style.width]="width()" [style.height]="height()" style="background-color: blueviolet;">
+    &nbsp;
+    @if (url()) {
+        <img [ngSrc]="url()" [width]="width()" [height]="height()" alt=""/>
+        <button type="button" class="p-image-preview-indicator" style="width: 250px;" aria-label="Zoom Image"></button>
+    }
+</div>

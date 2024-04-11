@@ -1,9 +1,5 @@
-<app-base-entity-edit-container
-    [loadState]="loaded()"
-    [savingState]="saving()"
-    (cancelClick)="cancel()"
-    (loadDataClick)="loadData()"
-    (submitClick)="submit()">
+<app-base-entity-edit-container [loadState]="loaded()" [savingState]="saving()" (cancelClick)="cancel()"
+                                (loadDataClick)="loadData()" (submitClick)="submit()">
     @if (dataForm) {
         <div [formGroup]="dataForm" class="p-fluid">
 
@@ -15,7 +11,7 @@
                        id="name"
                        pInputText
                        type="text"/>
-                <app-field-validation-common-errors [control]="dataForm.controls.name" maxLength="64"/>
+                <app-field-validation-common-errors [control]="dataForm.controls.name"/>
             </div>
 
 
@@ -27,7 +23,7 @@
                              id="isoCode"
                              maxlength="5"
                              mask="aa-aa"/>
-                <app-field-validation-common-errors [control]="dataForm.controls.isoCode" maxLength="5"/>
+                <app-field-validation-common-errors [control]="dataForm.controls.isoCode"/>
             </div>
         </div>
     }

@@ -4,12 +4,22 @@
                                 validator="required"/>
     <app-field-validation-error [control]="control()" message="Не соответствует шаблону"
                                 validator="pattern"/>
-    @if (minLength()) {
-        <app-field-validation-error [control]="control()" message="Минимальная длина {{minLength()}}"
-                                    validator="minlength"/>
-    }
-    @if (maxLength()) {
-        <app-field-validation-error [control]="control()" message="Максимальная длина {{maxLength()}}"
-                                    validator="maxlength"/>
-    }
+
+    <app-field-validation-error [control]="control()"
+                                message="Значение не должно быть меньше {{control().getError('min')?.min}}"
+                                validator="min"/>
+    <app-field-validation-error [control]="control()"
+                                message="Значение не должно быть больше {{control().getError('max')?.max}}"
+                                validator="max"/>
+
+    <app-field-validation-error [control]="control()"
+                                message="Минимальная длина {{control().getError('minlength')?.requiredLength}}"
+                                validator="minlength"/>
+    <app-field-validation-error [control]="control()"
+                                message="Максимальная длина {{control().getError('maxlength')?.requiredLength}}"
+                                validator="maxlength"/>
+
+    <app-field-validation-error [control]="control()"
+                                message="Размер файла больше {{control().getError('maxFileSize')?.max | fileSize}}"
+                                validator="maxFileSize"/>
 }

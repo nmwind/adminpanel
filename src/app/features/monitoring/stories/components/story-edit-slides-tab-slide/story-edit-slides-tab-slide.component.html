@@ -1,0 +1,66 @@
+@if (dataForm()) {
+    <div [formGroup]="dataForm()" class="p-fluid">
+
+        <div class="field text-center">
+            <app-image-input [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.image.invalid }"
+                             formControlName="image"
+                             preview="true"/>
+            <app-field-validation-common-errors [control]="dataForm().controls.image"/>
+        </div>
+
+        <div class="field">
+            <label for="title">Заголовок</label>
+            <input [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.title.invalid }"
+                   formControlName="title"
+                   id="title"
+                   pInputText/>
+            <app-field-validation-common-errors [control]="dataForm().controls.title"/>
+        </div>
+
+        <div class="field">
+            <label for="description">Описание</label>
+            <textarea [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.description.invalid }"
+                      rows="3"
+                      formControlName="description"
+                      id="description"
+                      pInputTextarea></textarea>
+            <app-field-validation-common-errors [control]="dataForm().controls.description"/>
+        </div>
+
+        <div class="field">
+            <label for="buttonTitle">Название кнопки</label>
+            <input [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.buttonTitle.invalid }"
+                   formControlName="buttonTitle"
+                   id="buttonTitle"
+                   pInputText/>
+            <app-field-validation-common-errors [control]="dataForm().controls.buttonTitle"/>
+        </div>
+
+        <div class="field">
+            <label for="url">Ссылка</label>
+            <input [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.url.invalid }"
+                   formControlName="url"
+                   id="url"
+                   pInputText
+                   type="url"/>
+            <app-field-validation-common-errors [control]="dataForm().controls.url"/>
+        </div>
+
+        <div class="field">
+            <label for="textColor">Цвет текста</label>
+            <p-inputGroup [ngClass]="{ 'ng-invalid ng-dirty':dataForm().controls.textColor.invalid }"
+                          id="textColor">
+                <input formControlName="textColor"
+                       maxlength="7"
+                       [pKeyFilter]="hexRegex"
+                       [value]="dataForm().controls.textColor.value"
+                       pInputText/>
+                <p-inputGroupAddon class="w-min">
+                    <p-colorPicker #picker formControlName="textColor" format="hex"/>
+                </p-inputGroupAddon>
+            </p-inputGroup>
+            <app-field-validation-common-errors [control]="dataForm().controls.textColor"/>
+        </div>
+
+    </div>
+}

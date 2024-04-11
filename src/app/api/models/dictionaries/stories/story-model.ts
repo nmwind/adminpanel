@@ -45,19 +45,19 @@ export interface StoryModel {
     /**
      * Дата и время создания записи (UTC)
      */
-    createdAt: string;
+    createdAt: Date;
     /**
      * Дата и время обновления записи (UTC)
      */
-    updatedAt: string;
+    updatedAt: Date;
     /**
      * Дата и время начала (UTC)
      */
-    activityStart: string;
+    activityStart: Date;
     /**
      * Дата и время завершения (UTC)
      */
-    activityEnd?: string;
+    activityEnd?: Date;
 
     image?: ImageInfoModel;
 

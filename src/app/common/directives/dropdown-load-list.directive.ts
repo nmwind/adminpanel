@@ -4,10 +4,10 @@ import { ListsService } from "@common/services/lists.service";
 import { Dropdown } from "primeng/dropdown";
 
 @Directive({
-    selector: 'p-dropdown[appFilterList]',
+    selector: 'p-dropdown[appLoadList]',
     standalone: true
 })
-export class DropdownFilterListDirective {
+export class DropdownLoadListDirective {
     private listName: ListName;
 
     constructor(
@@ -27,7 +27,7 @@ export class DropdownFilterListDirective {
         }, {allowSignalWrites: true});
     }
 
-    @Input() set appFilterList(value: ListName) {
+    @Input() set appLoadList(value: ListName) {
         this.listName = value;
     }
 

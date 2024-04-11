@@ -1,4 +1,39 @@
 <div class="card">
+    <p-toolbar styleClass="mb-4 p-0 border-none">
+        <ng-template pTemplate="start">
+            <div class="flex flex-wrap align-items-center gap-2">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input #searchValue pInputText placeholder="поиск..." type="text"/>
+                    </span>
+
+                <p-dropdown (onChange)="loadItems()"
+                            [(ngModel)]="filter.isDeleted.value"
+                            [options]="filter.isDeleted.values"
+                            optionLabel="name"
+                            optionValue="value"
+                            placeholder="все записи"
+                            showClear="true"/>
+                <p-dropdown (onChange)="loadItems()"
+                            [(ngModel)]="filter.languageId.value"
+                            appLoadList="Languages"
+                            placeholder="язык"
+                            showClear="true"/>
+                <p-dropdown (onChange)="loadItems()"
+                            [(ngModel)]="filter.isPublished.value"
+                            [options]="filter.isPublished.values"
+                            optionLabel="name"
+                            optionValue="value"
+                            placeholder="публикации"
+                            showClear="true"/>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="end">
+            <button routerLink="./new" class="p-button" icon="pi pi-plus" label="Создать" pButton></button>
+        </ng-template>
+    </p-toolbar>
+
     <p-table (onLazyLoad)="lazyLoadItems($event)"
              [lazy]="true"
              [loading]="dataSource.loading()"
@@ -13,43 +48,9 @@
              currentPageReportTemplate="Всего {totalRecords} элементов"
              dataKey="id"
              responsiveLayout="scroll"
-             sortField="createdAt">
+             sortField="createdAt"
+             styleClass="p-datatable-gridlines">
 
-        <ng-template pTemplate="caption">
-            <app-toolbar>
-                <ng-container app-toolbar-left>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input #searchValue
-                               pInputText
-                               placeholder="поиск..."
-                               type="text"/>
-                    </span>
-                    <p-dropdown (onChange)="loadItems()"
-                                [(ngModel)]="filter.isDeleted.value"
-                                [options]="filter.isDeleted.values"
-                                optionLabel="name"
-                                optionValue="value"
-                                placeholder="все записи"
-                                showClear="true"/>
-                    <p-dropdown (onChange)="loadItems()"
-                                [(ngModel)]="filter.languageId.value"
-                                appFilterList="Languages"
-                                placeholder="язык"
-                                showClear="true"/>
-                    <p-dropdown (onChange)="loadItems()"
-                                [(ngModel)]="filter.isPublished.value"
-                                [options]="filter.isPublished.values"
-                                optionLabel="name"
-                                optionValue="value"
-                                placeholder="публикации"
-                                showClear="true"/>
-                </ng-container>
-                <ng-container app-toolbar-right>
-                    <button routerLink="./new" class="p-button" icon="pi pi-plus" label="Создать" pButton></button>
-                </ng-container>
-            </app-toolbar>
-        </ng-template>
 
         <ng-template pTemplate="header">
             <tr>
@@ -96,10 +97,13 @@
                     <button class="p-button p-button-text" icon="pi pi-pencil" pButton routerLink="./{{item.id}}/edit"
                             title="Редактировать"></button>
                     @if (item.isDeleted) {
-                        <button (click)="restoreItem(item.id, item.name)" class="p-button p-button-text"
-                                icon="pi pi-refresh" pButton title="Восстановить"></button>
+                        <button class="p-button-text"
+                                icon="pi pi-refresh"
+                                (click)="restoreItem(item.id, item.name)"
+                                pButton
+                                title="Восстановить"></button>
                     } @else {
-                        <button (click)="deleteItem(item.id, item.name)" class="p-button p-button-text"
+                        <button (click)="deleteItem(item.id, item.name)" class="p-button-text"
                                 icon="pi pi-trash" pButton title="Удалить"></button>
                     }
                 </td>
